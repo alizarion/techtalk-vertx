@@ -10,13 +10,12 @@ class ServiceVerticle : AbstractVerticle() {
 
     override fun start(startFuture: Future<Void>) {
 
-        vertx.createHttpServer()
-                .requestHandler { req ->  req.response()
-                        .end(JsonObject()
-                                .put("message","hello world")
-                                .encode()
-                        )}
-                .listen(8081)
+
+        vertx.eventBus().consumer<Any>("hello-world-service") { message ->
+            println("I have received a message: ${message.body()}")
+            message.reply("hello world")
+
+        }
 
     }
 

@@ -2,7 +2,6 @@ package io.github.alizarion.backend.web
 
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
-import io.vertx.ext.web.client.WebClient
 
 
 class MainVerticle : AbstractVerticle() {
@@ -10,22 +9,19 @@ class MainVerticle : AbstractVerticle() {
 
     override fun start(startFuture: Future<Void>) {
 
-        val client: WebClient = WebClient.create(vertx)
-
         vertx.createHttpServer()
                 .requestHandler { req ->
-                   val request =  client.get(8081,"localhost","/")
-                    request.send { ar ->
+                    vertx.eventBus().send<Any>("hello-world-service", "yah !") { ar ->
                         if(ar.succeeded()){
 
-                           val message = ar.result().bodyAsJsonObject().getString("message")
-                            req.response().end(message)
+                            val message = ar.result().body()
+                            req.response().end(message as String)
 
                         } else {
-                            req.response().setStatusCode(500).end()
+                            req.response().setStatusCode(500).end(ar.cause().toString())
                         }
                     }
-                 }
+                }
                 .listen(8080)
     }
 
