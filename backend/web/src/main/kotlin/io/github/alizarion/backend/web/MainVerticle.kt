@@ -78,7 +78,7 @@ class MainVerticle : AbstractVerticle() {
         personService?.personList{ar ->
             if (ar.succeeded()){
 
-                req.response().end(ar.result().encode())
+                req.response().end(ar.result().encodePrettily())
             } else {
                 req.response().setStatusCode(500).end(ar.cause().toString())
             }

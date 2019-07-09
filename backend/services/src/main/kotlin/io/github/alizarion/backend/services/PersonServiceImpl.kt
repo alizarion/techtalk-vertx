@@ -8,39 +8,64 @@ import io.vertx.core.Handler
 import io.vertx.core.json.Json
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import io.vertx.redis.RedisClient
 
 import java.util.Collections
 import java.util.HashMap
 import java.util.UUID
 
-class PersonServiceImpl : PersonService {
+class PersonServiceImpl(redis: RedisClient) : PersonService {
+
+    val redis = redis
+
 
     override fun createPerson(person: JsonObject, handler: Handler<AsyncResult<JsonObject>>) {
         val id = UUID.randomUUID().toString()
         println(Json.encode(person))
         val entity = Json.decodeValue(Json.encode(person), Person::class.java)
         entity.id = id
-        PERSON_MAP[id] = entity
-        handler.handle(Future.succeededFuture(JsonObject(Json.encode(entity))))
+        redis.hset("PERSONS", id, Json.encode(entity)) { x ->
+            handler.handle(Future.succeededFuture(JsonObject(Json.encode(entity))))
+        }
+
     }
 
     override fun removePerson(id: String, handler: Handler<AsyncResult<JsonObject>>) {
         PERSON_MAP.remove(id)
-        handler.handle(Future.succeededFuture())
+        redis.hdel("PERSONS", id) { x -> handler.handle(Future.succeededFuture()) }
+
+
     }
 
     override fun personList(handler: Handler<AsyncResult<JsonArray>>) {
-        handler.handle(Future.succeededFuture(JsonArray(Json.encode(PERSON_MAP.values))))
+        println("personList")
+        redis.hgetall("PERSONS") { json ->
+            if (json.failed()) {
+                handler.handle(Future.failedFuture(json.toString()))
+            } else {
+                println("personList" + json.result().map.values)
+                handler.handle(Future.succeededFuture(JsonArray(json.result().map.values.toString())))
+            }
+        }
+
     }
 
     override fun personById(id: String, handler: Handler<AsyncResult<JsonObject>>) {
+        redis.hget("PERSONS", id) {json ->
+            if (json.failed()) {
+                handler.handle(Future.failedFuture(json.toString()))
+            } else  {
+                handler.handle(Future.succeededFuture(JsonObject(json.result())))
 
-        handler.handle(Future.succeededFuture(JsonObject(Json.encode(PERSON_MAP[id]))))
+            }
+        }
+
 
     }
 
-    companion object {
 
+
+    companion object {
         private val PERSON_MAP = Collections.synchronizedMap(HashMap<String, Person>())
     }
 }
