@@ -7,25 +7,13 @@ import io.vertx.core.Future
 class MainVerticle : AbstractVerticle() {
 
 
+
     override fun start(startFuture: Future<Void>) {
-
         vertx.createHttpServer()
-                .requestHandler { req ->
-                    vertx.eventBus().send<Any>("hello-world-service", "yah !") { ar ->
-                        if(ar.succeeded()){
-
-                            val message = ar.result().body()
-                            req.response().end(message as String)
-
-                        } else {
-                            req.response().setStatusCode(500).end(ar.cause().toString())
-                        }
-                    }
-                }
+                .requestHandler { req ->  req.response().end("Hello world!") }
                 .listen(8080)
+
     }
-
-
 
 }
 
