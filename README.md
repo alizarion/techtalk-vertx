@@ -2,6 +2,11 @@
 
 Create CRUD api using vert.x, kotlin, openshift, fabric8
 
+use github compare to show code change on these different steps (update step SX in the following URL)
+
+            https://github.com/alizarion/techtalk-vertx/compare/S0...S1
+
+
 ### Prerequisites 
 
 * Openshift preconfigured (oc cli up)
