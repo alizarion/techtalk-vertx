@@ -16,6 +16,7 @@
 
     <properties>
         <vertx.verticle>io.github.alizarion.backend.web.MainVerticle</vertx.verticle>
+        <vertx.health.path>/</vertx.health.path>
 
     </properties>
 
