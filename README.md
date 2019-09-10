@@ -28,7 +28,7 @@ run main.kt of MainVerticle.kt
   
 run main.kt of each verticle to launch
             
-            git checkout tags/S1   
+            git checkout tags/S2   
             
 ### S3 Hello world 2 verticle through eventbus  
 
