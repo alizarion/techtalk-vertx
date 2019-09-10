@@ -5,7 +5,7 @@ NC='\033[0m' # No Color
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 
-PROJECT=techalk-vertx
+PROJECT=vertx
 export JAVA_HOME=(/usr/libexec/java_home -v 1.8)
 export VERTX_OPTS='-Dvertx.options.maxEventLoopExecuteTime=100000000000'
 echo -e "${BLUE}Creating project ${PROJECT} ${NC}"

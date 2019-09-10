@@ -28,7 +28,25 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-sockjs-service-proxy</artifactId>
+            <version>${vertx.projectVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-codetrans</artifactId>
+            <version>${vertx.projectVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-lang-js</artifactId>
+            <version>${vertx.projectVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

@@ -9,8 +9,18 @@ import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.BodyHandler
 import io.vertx.core.http.HttpMethod
+import io.vertx.ext.bridge.PermittedOptions
 import io.vertx.ext.web.handler.CorsHandler
 import java.util.HashSet
+import io.vertx.ext.web.Router.router
+import io.vertx.ext.web.handler.sockjs.BridgeOptions
+import io.vertx.ext.web.handler.sockjs.SockJSHandler
+import io.vertx.ext.web.Router.router
+import io.vertx.ext.web.handler.StaticHandler
+
+
+
+
 
 
 class MainVerticle : AbstractVerticle() {
@@ -45,12 +55,21 @@ class MainVerticle : AbstractVerticle() {
 
         router.route().handler(CorsHandler.create("*").allowedHeaders(allowedHeaders).allowedMethods(allowedMethods))
 
-        vertx.createHttpServer()
-                .requestHandler(router)
-                .listen(8080)
 
+        val opts = BridgeOptions()
+                .addInboundPermitted(PermittedOptions()
+                        .setAddress("persons"))
+                .addOutboundPermitted(PermittedOptions()
+                        .setAddress("persons"))
+        // Create the event bus bridge and add it to the router.
+        val ebHandler = SockJSHandler.create(vertx).bridge(opts)
+        router.route("/eventbus/*").handler(ebHandler)
 
+        // Create a router endpoint for the static content.
+        router.route("/static/*").handler(StaticHandler.create())
 
+        // Start the web server and tell it to use the router to handle requests.
+        vertx.createHttpServer().requestHandler(router).listen(8080)
     }
 
     private fun createRouter() = Router.router(vertx).apply {
