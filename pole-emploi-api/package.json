@@ -1,0 +1,39 @@
+{
+  "name": "pole-emploi",
+  "version": "0.0.1",
+  "description": "An universal client for Pole Emploi API written in Typescript",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "umd:main": "dist/index.umd.js",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "rm -rf dist && microbundle  --tsconfig tsconfig.json",
+    "dev": "microbundle watch --tsconfig tsconfig.json",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.4.0",
+    "microbundle": "^0.11.0",
+    "nock": "^12.0.3"
+  },
+  "keywords": [
+    "poleemploi",
+    "pole emploi",
+    "typescript",
+    "api",
+    "client",
+    "universal"
+  ],
+  "author": "Selim Bensenouci <Selim.bensenouci@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
+    "querystringify": "^2.1.1"
+  }
+}
+

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "elementor-plugin",
+  "version": "0.0.1",
+  "generators": {
+    "elementor-plugin": {
+      "factory": "./src/generators/elementor-plugin/generator",
+      "schema": "./src/generators/elementor-plugin/schema.json",
+      "description": "elementor-plugin generator"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "pole-emploi-client-example",
+  "version": "1.0.0",
+  "description": "Example usage of pole emploi typescript client",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Selim Bensenouci <selim.bensenouci@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

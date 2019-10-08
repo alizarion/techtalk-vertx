@@ -1,0 +1,38 @@
+{
+  "title": "Deviens pro elementor",
+  "devDependencies": {
+    "react-scripts": "latest"
+  },
+  "dependencies": {
+    "@date-io/date-fns": "v1",
+    "@material-ui/core": "latest",
+    "@material-ui/pickers": "latest",
+    "date-fns": "latest",
+    "prop-types": "^15.7.2",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-to-webcomponent": "^1.5.1",
+    "validator": "^13.6.0"
+  },
+  "name": "deviens-pro-elementor-widget",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && npm run build:clean",
+    "build:clean": "rm build/static/js/*.map && mv build/static/js/main.*.chunk.js assets/js/main.js && mv build/static/js/*.chunk.js assets/js/ventor.js && mv build/static/js/runtime-main.*.js assets/js/runtime.js ",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
