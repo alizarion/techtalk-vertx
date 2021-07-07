@@ -31,6 +31,7 @@ function normalizeOptions(
     ? options.tags.split(',').map((s) => s.trim())
     : [];
 
+  console.log(options)
   return {
     ...options,
     projectName,

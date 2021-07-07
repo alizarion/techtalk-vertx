@@ -3,10 +3,15 @@
   "name": "elementor-plugin",
   "version": "0.0.1",
   "generators": {
-    "elementor-plugin": {
-      "factory": "./src/generators/elementor-plugin/generator",
-      "schema": "./src/generators/elementor-plugin/schema.json",
-      "description": "elementor-plugin generator"
+    "plugin": {
+      "factory": "./src/generators/plugin/generator",
+      "schema": "./src/generators/plugin/schema.json",
+      "description": "Initialize @betrue/elementor-plugin Wordpress plugin"
+    },
+    "addWidget": {
+      "factory": "./src/generators/widget/generator",
+      "schema": "./src/generators/widget/schema.json",
+      "description": "Add widget to an existing plugin"
     }
   }
 }
