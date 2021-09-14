@@ -6,7 +6,17 @@ import { ElementorPluginGeneratorSchema } from './schema';
 
 describe('elementor-plugin generator', () => {
   let appTree: Tree;
-  const options: ElementorPluginGeneratorSchema = { name: 'test' };
+  const options: ElementorPluginGeneratorSchema = { name: 'plugin',
+    tags: "",
+    directory: "",
+    pluginDescription: "",
+    pluginUri: "",
+    author: "",
+    copyright: "",
+    license: "",
+    link: "",
+    minElementorVersion: "",
+    version: ""};
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
@@ -14,7 +24,7 @@ describe('elementor-plugin generator', () => {
 
   it('should run successfully', async () => {
     await generator(appTree, options);
-    const config = readProjectConfiguration(appTree, 'test');
+    const config = readProjectConfiguration(appTree, 'plugin');
     expect(config).toBeDefined();
   });
 });

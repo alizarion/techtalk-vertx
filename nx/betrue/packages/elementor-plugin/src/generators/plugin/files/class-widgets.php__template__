@@ -13,7 +13,7 @@
  * php version 7.3.9
  */
 
-namespace <%= constantName %>;
+namespace <%= className %>;
 
 // Security Note: Blocks direct access to the plugin PHP files.
 defined('ABSPATH') || die();
@@ -68,16 +68,14 @@ class Widgets
      */
     private function include_widgets_files()
     {
-        require_once 'widgets/launch-test-bar/launch_goshaba_test.php';
-        require_once 'widgets/load-result/load_goshaba_result.php';
     }
 
     public function register_categories()
     {
         \Elementor\Plugin::instance()->elements_manager->add_category(
-            'deviens-pro-category',
+            '<%= fileName %>-category',
             array(
-                'title' => __('Deviens Pro components', 'elementor-deviens-pro'),
+                'title' => __('<%= name %> components', '<%= fileName %>'),
                 'icon' => 'fa fa-ship',
             )
         );
@@ -93,12 +91,9 @@ class Widgets
      */
     public function widget_scripts()
     {
-        wp_register_script('deviens-pro-launch-test-bar-script-vendor', plugins_url('widgets/launch-test-bar/assets/js/vendor.js', ELEMENTOR_DEVIENS_PRO), array(), '1.0.1', true);
-        wp_register_script('deviens-pro-launch-test-bar-script-main', plugins_url('widgets/launch-test-bar/assets/js/main.js', ELEMENTOR_DEVIENS_PRO), array(), '1.0.1', true);
-        wp_register_script('deviens-pro-launch-test-bar-script-runtime', plugins_url('widgets/launch-test-bar/assets/js/runtime.js', ELEMENTOR_DEVIENS_PRO), array(), '1.0.1', true);
-        wp_register_script('deviens-pro-load-goshaba-result-script-vendor', plugins_url('widgets/load-result/assets/js/vendor.js', ELEMENTOR_DEVIENS_PRO), array(), '1.0.1', true);
-        wp_register_script('deviens-pro-load-goshaba-result-script-main', plugins_url('widgets/load-result/assets/js/main.js', ELEMENTOR_DEVIENS_PRO), array(), '1.0.1', true);
-        wp_register_script('deviens-pro-load-goshaba-result-script-runtime', plugins_url('widgets/load-result/assets/js/runtime.js', ELEMENTOR_DEVIENS_PRO), array(), '1.0.1', true);
+             wp_register_script('<%= fileName %>-script-vendor', plugins_url('assets/js/vendor.js', ELEMENTOR_<%= constantName %>), array(), '1.0.0', true);
+             wp_register_script('<%= fileName %>-script-main', plugins_url('assets/js/main.js', ELEMENTOR_<%= constantName %>), array(), '1.0.0', true);
+             wp_register_script('<%= fileName %>-script-runtime', plugins_url('assets/js/runtime.js', ELEMENTOR_<%= constantName %>), array(), '1.0.0', true);
 
     }
 
@@ -116,8 +111,6 @@ class Widgets
         $this->include_widgets_files();
 
         // Register the plugin widget classes.
-        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\Launch_Goshaba_Test());
-        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\Load_Goshaba_Result());
 
     }
 
@@ -134,7 +127,6 @@ class Widgets
         // Register the widgets.
         add_action('elementor/elements/categories_registered', array($this, 'register_categories'));
         add_action('elementor/frontend/after_register_scripts', array($this, 'widget_scripts'));
-
         add_action('elementor/widgets/widgets_registered', array($this, 'register_widgets'));
 
     }

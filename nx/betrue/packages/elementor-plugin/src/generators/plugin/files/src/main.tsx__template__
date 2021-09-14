@@ -1,0 +1,6 @@
+<% if (strict) { %>import { StrictMode } from 'react';<% } %>
+import * as ReactDOM from 'react-dom';
+
+import App from './app/<%= fileName %>';
+
+ReactDOM.render(<% if (strict) { %><StrictMode><% } %><App /><% if (strict) { %></StrictMode><% } %>, document.getElementById('root'));
